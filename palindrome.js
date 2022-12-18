@@ -1,23 +1,23 @@
-// program to check if the string is palindrome or not
+const txtInput = document.querySelector(".inputs input"),
+  checkBtn = document.querySelector(".inputs button"),
+  infoTxt = document.querySelector(".info-txt");
 
-function check_plindrome(string) {
-  // find the length of a string
-  const len = string.length;
+let filterInput;
 
-  // loop through half of the string
-  for (let i = 0; i < len / 2; i++) {
-    // check if first and last string are same
-    if (string[i] !== string[len - 1 - i]) {
-      return "It is not a palindrome";
-    }
+checkBtn.addEventListener("click", () => {
+  let reverseInput = filterInput.split("").reverse().join("");
+  infoTxt.style.display = "block";
+  if (filterInput != reverseInput) {
+    return (infoTxt.innerHTML = `No, <span>'${txtInput.value}'</span> isn't a palindrome!`);
   }
-  return "It is a palindrome";
-}
+  infoTxt.innerHTML = `Yes, <span>'${txtInput.value}'</span> is a palindrome!`;
+});
 
-// take input
-const string = prompt("Enter a string: ");
-
-// call the function
-const value = check_Palindrome(string);
-
-console.log(value);
+txtInput.addEventListener("keyup", () => {
+  filterInput = txtInput.value.toLowerCase().replace(/[^A-Z0-9]/gi, "");
+  if (filterInput) {
+    return checkBtn.classList.add("active");
+  }
+  infoTxt.style.display = "none";
+  checkBtn.classList.remove("active");
+});
